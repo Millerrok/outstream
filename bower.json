@@ -1,0 +1,33 @@
+{
+  "name": "outstream",
+  "homepage": "https://github.com/Millerrok/outstream",
+  "authors": [
+    "arhengel@gmail.com"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "swfobject": "*",
+    "flashdetect": "git://github.com/tylerault/flashdetect.git"
+  },
+  "install": {
+    "path": "js/vendor",
+    "sources": {
+      "swfobject": [
+        "bower_components/swfobject/swfobject/swfobject.js"
+      ],
+      "flashdetect": [
+        "bower_components/flashdetect/flashdetect.js"
+      ]
+    }
+  }
+}
