@@ -10,7 +10,7 @@ npm i
 bower i
 bower-installer
 gulp
-index.html
+open index.html
 ```
 
 ## Usage
