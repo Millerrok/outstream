@@ -1,3 +1,10 @@
+/**
+ * @param aid {number}
+ * @param width {number}
+ * @param height {number}
+ * @param sid {number}
+ * @constructor
+ */
 function Wrapper(aid, width, height, sid) {
     if(!aid){
         throw new Error('Set aid')
@@ -11,8 +18,8 @@ function Wrapper(aid, width, height, sid) {
     this.aid = aid;
 }
 
-Wrapper.prototype.wrap = function (playerId) {
-    var config = this.getConfig(playerId),
+Wrapper.prototype.wrap = function (adId) {
+    var config = this.getConfig(adId),
         width = this.width,
         height = this.height;
 
@@ -20,24 +27,24 @@ Wrapper.prototype.wrap = function (playerId) {
         window.VpaidflashWrappers = {}
     }
 
-    window.VpaidflashWrappers[playerId] = {};
+    window.VpaidflashWrappers[adId] = {};
 
-    var wrapper = window.VpaidflashWrappers[playerId];
+    var wrapper = window.VpaidflashWrappers[adId];
 
     wrapper.adLoadedClosure = function () {
-        window["SdkIntegration" + playerId].startAd();
+        window["SdkIntegration" + adId].startAd();
     };
 
     wrapper.startFlashWrapper = function () {
-        var SdkIntegration = window["SdkIntegration" + playerId];
+        var SdkIntegration = window["SdkIntegration" + adId];
         SdkIntegration.width = width;
         SdkIntegration.height = height;
         SdkIntegration.loadAd(config);
     };
 };
 
-Wrapper.prototype.getConfig = function (playerId) {
-    var tpl = "window.VpaidflashWrappers[" + playerId + "]";
+Wrapper.prototype.getConfig = function (adId) {
+    var tpl = "window.VpaidflashWrappers[" + adId + "]";
 
     return JSON.stringify({
         adLoadedClosure: tpl + ".adLoadedClosure",
@@ -47,6 +54,7 @@ Wrapper.prototype.getConfig = function (playerId) {
         vastUrl: this.getVastUrl()
     })
 };
+
 Wrapper.prototype.getVastUrl = function () {
     return 'http://vast.videe.tv/vast-proxy/?aid=' + this.aid +
         '&content_page_url=' + this.host +

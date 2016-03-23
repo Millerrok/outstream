@@ -9,3 +9,4 @@ out
 gen
 js/vendor
 bower_components
+node_modules

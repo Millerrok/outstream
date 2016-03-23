@@ -1,3 +1,12 @@
+/**
+ * @param options.aid {number}
+ * @param options.width {number}
+ * @param options.height {number}
+ * @param options.containerEl {object}
+ *
+ * @param options {object}
+ * @constructor
+ */
 function Outstream(options) {
     if (!getFlashVersion()) {
         console.error('Flash Player not installed!');
@@ -11,7 +20,7 @@ function Outstream(options) {
         return;
     }
 
-    this.options_ = options || {};
+    this.options = options || {};
 
     this.sdkUnique = null;
     this.id = Math.round(( new Date() ).getTime() / 10000 + Math.random() * 10000000);
@@ -23,14 +32,10 @@ function Outstream(options) {
         wmode: 'transparent'
     };
 
+    this.addWrapperEl();
     this.initWrapper();
     this.embedSWF();
 }
-
-Outstream.prototype.options = function (newOptions) {
-    this.options_ = newOptions || this.options_;
-    return this.options_;
-};
 
 Outstream.prototype.flashvars = function () {
     return {
@@ -41,10 +46,10 @@ Outstream.prototype.flashvars = function () {
 Outstream.prototype.initWrapper = function () {
     try {
         new Wrapper(
-            this.options().aid,
-            this.options().width,
-            this.options().height,
-            this.options().sid
+            this.options.aid,
+            this.options.width,
+            this.options.height,
+            this.options.sid
         ).wrap(this.id);
     } catch (err) {
         console.error(err)
@@ -56,18 +61,16 @@ Outstream.prototype.addWrapperEl = function () {
     var blocker = document.createElement('div');
     blocker.className = 'flash-blocker';
     blocker.innerHTML = '<div id="' + this.sdkUnique + '"></div>';
-    this.options().containerEl.appendChild(blocker);
+    this.options.containerEl.appendChild(blocker);
 };
 
 Outstream.prototype.embedSWF = function () {
-    this.addWrapperEl();
-
     try {
         swfobject.embedSWF(
             this.unitSrc,
             this.sdkUnique,
-            this.options().width,
-            this.options().height,
+            this.options.width,
+            this.options.height,
             this.flashVersion,
             undefined,
             this.flashvars(),
@@ -78,6 +81,10 @@ Outstream.prototype.embedSWF = function () {
         console.log(err)
     }
 };
+
 Outstream.prototype.destroy = function(){
-    this.options().containerEl.innerHTML = ''
+    this.options.containerEl.innerHTML = ''
 };
+
+var root = root ||window;
+root.Outstream = Outstream;
