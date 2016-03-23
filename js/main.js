@@ -24,7 +24,7 @@ function Outstream(options) {
 
     this.sdkUnique = null;
     this.id = Math.round(( new Date() ).getTime() / 10000 + Math.random() * 10000000);
-    this.unitSrc = 'http://192.168.1.130:3000/resources/libs/videejs-player.swf';
+    this.unitSrc = 'http://player.videe.tv/v2.1/resources/libs/videejs-player.swf';
     this.flashVersion = "10.0.0";
     this.params = {
         allowScriptAccess: "always",

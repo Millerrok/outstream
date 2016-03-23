@@ -22,4 +22,12 @@ gulp.task('clean', function () {
         .pipe(plugins.clean());
 });
 
+gulp.task('serve', function() {
+    gulp.src('./')
+        .pipe(plugins.webserver({
+            port:'9090',
+            open: true
+        }));
+});
+
 gulp.task('default', ['clean', 'js']);
