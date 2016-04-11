@@ -7,8 +7,8 @@ Outstream initer for VPAID unit
 {sudo} npm install --global bower
 {sudo} npm install --global bower-installer
 npm i
-npm run build
-npm run server
+npm run build // build dist
+npm run server // open index.html
 ```
 
 ## Usage
