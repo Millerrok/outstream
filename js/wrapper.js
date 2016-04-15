@@ -6,7 +6,7 @@
  * @constructor
  */
 function Wrapper(aid, width, height, sid) {
-    if(!aid){
+    if (!aid) {
         throw new Error('Set aid')
     }
 
@@ -20,7 +20,8 @@ function Wrapper(aid, width, height, sid) {
 
 Wrapper.prototype.wrap = function (adId) {
     var config = this.getConfig(adId),
-        width = this.width,
+        eventManager = new EventManager();
+    width = this.width,
         height = this.height;
 
     if (!window.VpaidflashWrappers) {
@@ -29,18 +30,29 @@ Wrapper.prototype.wrap = function (adId) {
 
     window.VpaidflashWrappers[adId] = {};
 
-    var wrapper = window.VpaidflashWrappers[adId];
-
-    wrapper.adLoadedClosure = function () {
-        window["SdkIntegration" + adId].startAd();
+    window.VpaidflashWrappers[adId] = {
+        adLoadedClosure: function () {
+            eventManager.trigger('loaded');
+            window["SdkIntegration" + adId].startAd();
+        },
+        adErrorClosure: function () {
+            eventManager.trigger('error');
+        },
+        adCompleteClosure: function () {
+            eventManager.trigger('complete');
+        },
+        adStartedClosure: function () {
+            eventManager.trigger('started');
+        },
+        startFlashWrapper: function () {
+            var SdkIntegration = window["SdkIntegration" + adId];
+            SdkIntegration.width = width;
+            SdkIntegration.height = height;
+            SdkIntegration.loadAd(config);
+        }
     };
 
-    wrapper.startFlashWrapper = function () {
-        var SdkIntegration = window["SdkIntegration" + adId];
-        SdkIntegration.width = width;
-        SdkIntegration.height = height;
-        SdkIntegration.loadAd(config);
-    };
+    return eventManager;
 };
 
 Wrapper.prototype.getConfig = function (adId) {
@@ -48,6 +60,9 @@ Wrapper.prototype.getConfig = function (adId) {
 
     return JSON.stringify({
         adLoadedClosure: tpl + ".adLoadedClosure",
+        adStartedClosure: tpl + ".adStartedClosure",
+        adErrorClosure: tpl + ".adErrorClosure",
+        adCompleteClosure: tpl + ".adCompleteClosure",
         volume: 1,
         width: this.width,
         height: this.height,
@@ -62,4 +77,22 @@ Wrapper.prototype.getVastUrl = function () {
         '&player_width=' + this.width +
         '&sid=' + this.sid +
         '&cb=' + this.cd
+};
+
+function EventManager() {
+    this.events = {};
+}
+
+EventManager.prototype.on = function (eventName, callback) {
+    this.events[eventName + ''] = callback;
+};
+
+EventManager.prototype.trigger = function (eventName, data) {
+    var callback = this.events[eventName];
+
+    if (!callback) {
+        return;
+    }
+
+    callback.call(null, data);
 };

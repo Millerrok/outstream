@@ -20,3 +20,60 @@ npm run server // open index.html
       containerEl: document.getElementById('ad-container')
   })
 ```
+
+## Events:
+
+<md-table-container>
+  <table md-table>
+    <thead md-head >
+      <tr md-row>
+        <th md-column> Event Name </th>
+        <th md-column> Description </th>
+      </tr>
+    </thead>
+    <tbody md-body>
+      <tr md-row >
+        <td md-cell> 'loaded' </td>
+        <td md-cell> On ad is loaded </td>
+      </tr>
+      <tr md-row >
+        <td md-cell> 'error'</td>
+        <td md-cell> On ad has some error</td>
+      </tr>
+       <tr md-row >
+        <td md-cell> 'complete' </td>
+        <td md-cell> On finish play ad </td>
+      </tr>
+      <tr md-row >
+        <td md-cell> 'started' </td>
+        <td md-cell> On ad start play </td>
+      </tr>
+    </tbody>
+  </table>
+</md-table-container>
+
+```javascript
+    var outstream = new Outstream({
+        aid: 13694,
+        width: 400,
+        height: 300,
+        containerEl: document.getElementById('ad-container')
+    })
+
+    outstream.on('load',function(){
+        // code ...
+    });
+```
+## Methods:
+
+### on()
+ Subscribe for Outstream event
+
+### off()
+ Unsubscribe from Outstream event
+
+### trigger()
+ Trigger Outstream event
+
+### destroy()
+ destroy Outstream containerEl content

@@ -1,6 +1,6 @@
 {
   "name": "outstream",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "",
   "main": "gulpfile.js",
   "dependencies": {
@@ -11,11 +11,12 @@
     "gulp-concat": "^2.6.0",
     "gulp-js-wrapper": "0.0.3",
     "gulp-load-plugins": "^1.2.0",
+    "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.5.3",
     "gulp-webserver": "^0.9.1"
   },
   "scripts": {
-    "build": "bower i && bower-installer && gulp",
+    "build": "bower i && bower-installer && gulp build",
     "server": "gulp serve"
   },
   "repository": {

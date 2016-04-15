@@ -4,6 +4,13 @@ var gulp = require('gulp'),
             'gulp-js-wrapper': 'wrap'
         }
     });
+gulp.task('js:dev', function () {
+    gulp.src("./js/**")
+        .pipe(plugins.sourcemaps.init())
+        .pipe(plugins.concat('outstream.js'))
+        .pipe(plugins.sourcemaps.write())
+        .pipe(gulp.dest('./dist'));
+});
 gulp.task('js', function () {
     gulp.src("./js/**")
         .pipe(plugins.concat('outstream.js'))
@@ -22,12 +29,17 @@ gulp.task('clean', function () {
         .pipe(plugins.clean());
 });
 
-gulp.task('serve', function() {
+gulp.task('serve', function () {
     gulp.src('./')
         .pipe(plugins.webserver({
-            port:'9090',
+            livereload: true,
+            port: '9090',
             open: true
         }));
 });
+gulp.task('watch', ['js:dev'], function () {
+    gulp.watch('./js/**/*.js', ['js:dev']);
+});
 
-gulp.task('default', ['clean', 'js']);
+gulp.task('default', ['clean', 'watch', 'serve']);
+gulp.task('build', ['clean', 'js']);

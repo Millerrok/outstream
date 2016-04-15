@@ -32,8 +32,9 @@ function Outstream(options) {
         wmode: 'transparent'
     };
 
+    this.events = {};
     this.addWrapperEl();
-    this.initWrapper();
+    this.initEventListener(this.initWrapper());
     this.embedSWF();
 }
 
@@ -45,7 +46,7 @@ Outstream.prototype.flashvars = function () {
 
 Outstream.prototype.initWrapper = function () {
     try {
-        new Wrapper(
+        return new Wrapper(
             this.options.aid,
             this.options.width,
             this.options.height,
@@ -82,9 +83,40 @@ Outstream.prototype.embedSWF = function () {
     }
 };
 
-Outstream.prototype.destroy = function(){
+Outstream.prototype.initEventListener = function (eventManager) {
+    var context = this,
+        proxyEvents = ['loaded','error','complete','started'];
+
+    proxyEvents.forEach(function (evt) {
+        eventManager.on(evt, function (data) {
+            context.trigger(evt, data);
+        });
+    });
+};
+
+Outstream.prototype.on = function (eventName, callback) {
+    this.events[eventName + ''] = callback;
+    return this;
+};
+
+Outstream.prototype.off = function (eventName) {
+    delete this.events[eventName + ''];
+    return this;
+};
+
+Outstream.prototype.trigger = function (eventName, data) {
+    var callback = this.events[eventName];
+
+    if (!callback) {
+        return;
+    }
+
+    callback.call(this, data);
+};
+
+Outstream.prototype.destroy = function () {
     this.options.containerEl.innerHTML = ''
 };
 
-var root = root ||window;
+var root = root || window;
 root.Outstream = Outstream;
