@@ -12,6 +12,23 @@ npm run server // open index.html
 ```
 
 ## Usage
+
+### Auto initialization tag :
+ It will add Outstream before `script tag`
+ If script tag parentEl tagName is "HEAD" it will de appended to `body`
+
+ defaults:
+ !dataOutstreamWidth ? `400` : dataOutstreamWidth
+ !dataOutstreamHeight ? `300` : dataOutstreamHeight
+
+ Usage:
+```HTML
+  <script data-outstream-aid="13694" data-outstream-width="400" data-outstream-height="300" src="dist/outstream.js"></script>
+```
+
+### By Constructor:
+
+ Usage:
 ```javascript
   new Outstream({
       aid: 13694,
@@ -93,3 +110,9 @@ npm run server // open index.html
 
 ### destroy()
  destroy Outstream containerEl content
+
+## Support
+ IE from ie7
+ Chrome
+ FireFox
+ Safari
