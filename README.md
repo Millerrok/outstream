@@ -48,6 +48,22 @@ npm run server // open index.html
         <td md-cell> 'started' </td>
         <td md-cell> On ad start play </td>
       </tr>
+       <tr md-row >
+        <td md-cell> 'resumed' </td>
+        <td md-cell> on resumes the current ad </td>
+      </tr>
+       <tr md-row >
+        <td md-cell> 'paused' </td>
+        <td md-cell> On ad is paused </td>
+      </tr>
+      <tr md-row >
+        <td md-cell> 'mute' </td>
+        <td md-cell> On ad volume muted </td>
+      </tr>
+      <tr md-row >
+        <td md-cell> 'unmute' </td>
+        <td md-cell> On ad volume unmuted </td>
+      </tr>
     </tbody>
   </table>
 </md-table-container>

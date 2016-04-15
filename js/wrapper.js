@@ -41,6 +41,18 @@ Wrapper.prototype.wrap = function (adId) {
         adCompleteClosure: function () {
             eventManager.trigger('complete');
         },
+        pausedClosure: function () {
+            eventManager.trigger('paused');
+        },
+        resumedClosure: function () {
+            eventManager.trigger('resumed');
+        },
+        muteClosure: function () {
+            eventManager.trigger('mute');
+        },
+        unmuteClosure: function () {
+            eventManager.trigger('unmute');
+        },
         adStartedClosure: function () {
             eventManager.trigger('started');
         },
@@ -59,10 +71,14 @@ Wrapper.prototype.getConfig = function (adId) {
     var tpl = "window.VpaidflashWrappers[" + adId + "]";
 
     return JSON.stringify({
-        adLoadedClosure: tpl + ".adLoadedClosure",
-        adStartedClosure: tpl + ".adStartedClosure",
-        adErrorClosure: tpl + ".adErrorClosure",
         adCompleteClosure: tpl + ".adCompleteClosure",
+        adStartedClosure: tpl + ".adStartedClosure",
+        adLoadedClosure: tpl + ".adLoadedClosure",
+        adErrorClosure: tpl + ".adErrorClosure",
+        resumedClosure: tpl + ".resumedClosure",
+        pausedClosure: tpl + ".pausedClosure",
+        unmuteClosure: tpl + ".unmuteClosure",
+        muteClosure: tpl + ".muteClosure",
         volume: 1,
         width: this.width,
         height: this.height,
