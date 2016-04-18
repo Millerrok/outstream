@@ -87,9 +87,13 @@ Outstream.prototype.initEventListener = function (eventManager) {
     var context = this,
         proxyEvents = ['loaded','error','complete','started','resumed','paused','mute','unmute'];
 
-    for( var event in proxyEvents){
-        eventManager.on(proxyEvents[event], function (data) {
-            context.trigger(proxyEvents[event], data);
+    for(var i in proxyEvents){
+        initEvent(proxyEvents[i]);
+    }
+
+    function initEvent(proxyEvent){
+        eventManager.on(proxyEvent, function (data) {
+            context.trigger(proxyEvent, data);
         });
     }
 };
