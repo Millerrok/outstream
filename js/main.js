@@ -85,13 +85,13 @@ Outstream.prototype.embedSWF = function () {
 
 Outstream.prototype.initEventListener = function (eventManager) {
     var context = this,
-        proxyEvents = ['loaded','error','complete','started'];
+        proxyEvents = ['loaded','error','complete','started','resumed','paused','mute','unmute'];
 
-    proxyEvents.forEach(function (evt) {
-        eventManager.on(evt, function (data) {
-            context.trigger(evt, data);
+    for( var event in proxyEvents){
+        eventManager.on(proxyEvents[event], function (data) {
+            context.trigger(proxyEvents[event], data);
         });
-    });
+    }
 };
 
 Outstream.prototype.on = function (eventName, callback) {
