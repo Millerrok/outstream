@@ -11,9 +11,9 @@ gulp.task('js:dev', function () {
         .pipe(plugins.sourcemaps.write())
         .pipe(gulp.dest('./dist'));
 });
-gulp.task('js', function () {
+gulp.task('js:prod', function () {
     gulp.src("./js/**")
-        .pipe(plugins.concat('outstream.js'))
+        .pipe(plugins.concat('outstream.min.js'))
         .pipe(plugins.wrap({
             safeUndef: true,
             globals: {
@@ -23,6 +23,8 @@ gulp.task('js', function () {
         .pipe(plugins.uglify())
         .pipe(gulp.dest('./dist'));
 });
+
+gulp.task('js',['js:dev','js:prod']);
 
 gulp.task('clean', function () {
     return gulp.src('./dist/', {read: false})
