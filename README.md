@@ -1,16 +1,6 @@
 # outstream
 Outstream initer for VPAID unit
 
-## Installation
-```bash
-{sudo} npm install --global gulp-cli
-{sudo} npm install --global bower
-{sudo} npm install --global bower-installer
-npm i
-npm run build // build dist
-npm run server // open index.html
-```
-
 ## Usage
 
 ### Auto initialization tag :
