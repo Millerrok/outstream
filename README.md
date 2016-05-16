@@ -17,7 +17,7 @@ Outstream initer for VPAID unit
 ```
 
 ### By Constructor:
-  First create a new DOM element. The created element will be used as the container for generated `Outstream DOM element`. Then setup it up within the Outstream constructor.
+  First create a new DOM element. The created element will be used as the container for the generated `Outstream DOM element`. Then setup it up within the Outstream constructor.
 
  Usage:
 ```javascript
