@@ -5,7 +5,7 @@
  * @param sid {number}
  * @constructor
  */
-function Wrapper(aid, width, height, sid) {
+function Wrapper(aid, width, height, sid, configUrl) {
     if (!aid) {
         throw new Error('Set aid')
     }
@@ -16,12 +16,13 @@ function Wrapper(aid, width, height, sid) {
     this.width = width || 400;
     this.sid = sid || 0;
     this.aid = aid;
+    this.configUrl = configUrl;
 }
 
 Wrapper.prototype.wrap = function (adId) {
     var config = this.getConfig(adId),
-        eventManager = new EventManager();
-    width = this.width,
+        eventManager = new EventManager(),
+        width = this.width,
         height = this.height;
 
     if (!window.VpaidflashWrappers) {
@@ -82,33 +83,6 @@ Wrapper.prototype.getConfig = function (adId) {
         volume: 1,
         width: this.width,
         height: this.height,
-        vastUrl: this.getVastUrl()
+        vastUrl: this.configUrl
     })
-};
-
-Wrapper.prototype.getVastUrl = function () {
-    return 'http://vast.videe.tv/vast-proxy/?aid=' + this.aid +
-        '&content_page_url=' + this.host +
-        '&player_height=' + this.height +
-        '&player_width=' + this.width +
-        '&sid=' + this.sid +
-        '&cb=' + this.cd
-};
-
-function EventManager() {
-    this.events = {};
-}
-
-EventManager.prototype.on = function (eventName, callback) {
-    this.events[eventName + ''] = callback;
-};
-
-EventManager.prototype.trigger = function (eventName, data) {
-    var callback = this.events[eventName];
-
-    if (!callback) {
-        return;
-    }
-
-    callback.call(null, data);
 };

@@ -17,7 +17,8 @@
   ],
   "dependencies": {
     "swfobject": "*",
-    "flashdetect": "git://github.com/tylerault/flashdetect.git"
+    "flashdetect": "git://github.com/tylerault/flashdetect.git",
+    "bluebird": "^3.4.0"
   },
   "install": {
     "path": "js/vendor",
@@ -27,6 +28,9 @@
       ],
       "flashdetect": [
         "bower_components/flashdetect/flashdetect.js"
+      ],
+      "bluebird": [
+        "bower_components/bluebird/js/browser/bluebird.js"
       ]
     }
   }

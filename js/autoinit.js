@@ -1,14 +1,55 @@
 window.onload = function () {
+
+    var parser = {
+        number: function(el, key){
+            var value = this.parse(el, key);
+
+            return parseInt(value);
+        },
+        array: function(el, key){
+            var value = this.parse(el, key);
+            if(!value){
+                return value;
+            }
+
+            return value.split(' ');
+        },
+        bool: function(el, key){
+            var value = this.parse(el, key);
+
+            try{
+                value = JSON.parse(value)
+            }catch(err){
+                value = false
+            }
+
+            return !!value;
+        },
+        parse: function(el, key){
+            var value;
+
+            try {
+                value = el.getAttribute('data-outstream-' + key);
+            } catch (e) {
+                return undefined;
+            }
+
+            return value;
+        }
+    };
+
     (function () {
         var scriptTags = document.getElementsByTagName('script');
 
         for (var item in scriptTags) {
-            var aid = parseAttr(scriptTags[item], 'aid');
+            var aid = parser.number(scriptTags[item], 'aid');
 
             if (!!aid && !isNaN(aid)) {
                 initOutstream({
-                    width: parseAttr(scriptTags[item], 'width'),
-                    height: parseAttr(scriptTags[item], 'height'),
+                    width: parser.number(scriptTags[item], 'width'),
+                    height: parser.number(scriptTags[item], 'height'),
+                    isSSP: parser.bool(scriptTags[item], 'SSP'),
+                    VPAIDMode: parser.array(scriptTags[item], 'mode'),
                     aid: aid,
                     containerEl: createEl(scriptTags[item])
                 });
@@ -16,21 +57,12 @@ window.onload = function () {
         }
     })();
 
-    function parseAttr(el, key) {
-        var value;
-
-        try {
-            value = parseInt(el.getAttribute('data-outstream-' + key));
-        } catch (e) {
-            return undefined;
-        }
-
-        return value;
-    }
 
     function initOutstream(options) {
         new Outstream({
             aid: options.aid,
+            isSSP: options.isSSP,
+            VPAIDMode: options.VPAIDMode,
             width: isNaN(options.width) ? 400 : options.width,
             height: isNaN(options.height) ? 300 : options.height,
             containerEl: options.containerEl
