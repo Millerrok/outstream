@@ -1,33 +1,23 @@
 # outstream
 Outstream initer for VPAID unit
 
-## Installation
-```bash
-{sudo} npm install --global gulp-cli
-{sudo} npm install --global bower
-{sudo} npm install --global bower-installer
-npm i
-npm run build // build dist
-npm run server // open index.html
-```
-
 ## Usage
 
-### Auto initialization tag :
- It will add Outstream before `script tag`
- If script tag parentEl tagName is "HEAD" it will de appended to `body`
+### Auto initialization with `script tag` :
+ Default size is `400 X 300`
 
- defaults:
-```javascript
- !dataOutstreamWidth ? 400 : dataOutstreamWidth
- !dataOutstreamHeight ? 300 : dataOutstreamHeight
-```
- Usage:
+
+ Add `script tag` anywhere to the page code.
+ * It will add the generated `Outstream DOM element` before the `script tag` in DOM
+ * If the `script tag` is added to the header, then the `Outstream DOM element` will be added to end of the `body`
+
+`script tag` example:
 ```HTML
   <script data-outstream-aid="13694" data-outstream-width="400" data-outstream-height="300" src="dist/outstream.js"></script>
 ```
 
 ### By Constructor:
+  First create a new DOM element. The created element will be used as the container for the generated `Outstream DOM element`. Then setup it up within the Outstream constructor.
 
  Usage:
 ```javascript
