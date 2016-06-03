@@ -63,13 +63,20 @@ Outstream initer for VPAID unit
       <tr md-row >
         <td md-cell> isSSP: boolean </td>
         <td md-cell> data-outstream-SSP </td>
-        <td md-cell> Options for selection: vast.vertamedia.com (SSP account) or vast.videe.tv <br> (Videe.TV account (is used by default)) </td>
+        <td md-cell> Options for selection: vast.vertamedia.com (SSP account) or vast.videe.tv <br> 
+        (Videe.TV account (is used by default)) </td>
       </tr>
       <tr md-row >
         <td md-cell> VPAIDMode:array </td>
         <td md-cell> data-outstream-mode </td>
-        <td md-cell> Used for set of the VPAID mode. Options are: ['js'] or ['flash]. <br> If some mode is not supported by browser it possible <br> to set stack of modes. When one mode is not supported it <br> will be use next from stack ['js','flash'] or ['flash','js].<br>
-        Custom stack is ['flash','js]. When tag parameter used - for separation of modes space should be used </td>
+        <td md-cell>
+        Used for set of the VPAID mode. Options are: ['js'] or ['flash]. <br>
+        If some mode is not supported by browser it possible <br>
+        to set stack of modes. When one mode is not supported it <br>
+        will be use next from stack ['js','flash'] or ['flash','js].<br>
+        Custom stack is ['flash','js]. When tag parameter used -<br>
+        for separation of modes space should be used 
+        </td>
       </tr>
     </tbody>
   </table>
