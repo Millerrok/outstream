@@ -68,7 +68,8 @@ Outstream initer for VPAID unit
       <tr md-row >
         <td md-cell> VPAIDMode:array </td>
         <td md-cell> data-outstream-mode </td>
-        <td md-cell> Used for set of the VPAID mode. Options are: ['js'] or ['flash]. <br> If some mode is not supported by browser it possible <br> to set stack of modes. When one mode is not supported it <br> will be use next from stack ['js','flash'] or ['flash','js].<br> Custom stack is ['flash','js]. When tag parameter used - for separation <br> of modes space should be used </td>
+        <td md-cell> Used for set of the VPAID mode. Options are: ['js'] or ['flash]. <br> If some mode is not supported by browser it possible <br> to set stack of modes. When one mode is not supported it <br> will be use next from stack ['js','flash'] or ['flash','js].<br>
+        Custom stack is ['flash','js]. When tag parameter used - for separation of modes space should be used </td>
       </tr>
     </tbody>
   </table>
@@ -147,7 +148,7 @@ Outstream initer for VPAID unit
 ### destroy()
  destroy Outstream containerEl content
 
-## Support
+## Flash mode Support :
  IE from ie7
  Chrome
  FireFox
