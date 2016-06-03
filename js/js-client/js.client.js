@@ -7,7 +7,7 @@ function JsClient(options) {
 JsClient.prototype.embed = function () {
     return [
         new Promise(function (resolve, reject) {
-            this.iframe().addEventListener('load',function () {
+            this.iframe().addEventListener('load', function () {
                 this.iFwindow = this.iframe().contentWindow;
                 this.iFwindow.document.body.appendChild(this.videoTag());
                 this.iFwindow.document.body.appendChild(this.script());
@@ -27,6 +27,14 @@ JsClient.prototype.embed = function () {
 };
 
 JsClient.prototype.init = function (VpaidSource, configUrl) {
+    if (!VpaidSource || !configUrl) {
+        throw new Error('Set correct options');
+    }
+
+    if (!this.videoTag().canPlayType) {
+        throw new Error('HTML5 video not support');
+    }
+
     this.VpaidSource = VpaidSource;
     this.configUrl = configUrl;
 
@@ -35,7 +43,7 @@ JsClient.prototype.init = function (VpaidSource, configUrl) {
             this.VPAID = this.iFwindow.getVPAIDAd();
             this.initVPAID();
         }.bind(this))
-        .catch(function (err) {
+        .caught(function (err) {
             console.error(err);
         });
 
@@ -68,6 +76,7 @@ JsClient.prototype.initVPAID = function () {
     }, 'AdVideoComplete');
 
     this.VPAID.handshakeVersion(2);
+
     this.VPAID.initAd(
         this.options.width,
         this.options.height,

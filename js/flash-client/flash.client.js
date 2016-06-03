@@ -1,8 +1,6 @@
 function FlashClient(options) {
     if (!getFlashVersion()) {
         throw new Error('Flash Player not installed!');
-
-        return;
     }
 
     this.eventManager;
@@ -22,7 +20,7 @@ function FlashClient(options) {
 }
 
 FlashClient.prototype.init = function (VpaidSource, configUrl, vastUrl) {
-    if(!this.checkUnitSource(VpaidSource)){
+    if(VpaidSource && !this.checkUnitSource(VpaidSource)){
         throw new Error('unit not SWF');
     }
 
@@ -34,7 +32,6 @@ FlashClient.prototype.init = function (VpaidSource, configUrl, vastUrl) {
 FlashClient.prototype.checkUnitSource = function (VpaidSource){
     return VpaidSource.indexOf('.swf') != -1;
 };
-
 
 FlashClient.prototype.embedSWF = function () {
     try {

@@ -70,7 +70,6 @@ Wrapper.prototype.wrap = function (adId) {
 
 Wrapper.prototype.getConfig = function (adId) {
     var tpl = "window.VpaidflashWrappers[" + adId + "]";
-
     return JSON.stringify({
         adCompleteClosure: tpl + ".adCompleteClosure",
         adStartedClosure: tpl + ".adStartedClosure",
@@ -83,6 +82,15 @@ Wrapper.prototype.getConfig = function (adId) {
         volume: 1,
         width: this.width,
         height: this.height,
-        vastUrl: this.configUrl
+        vastUrl: this.getVastUrl()
     })
+};
+
+Wrapper.prototype.getVastUrl = function () {
+    return this.configUrl || '//vast.videe.tv/vast-proxy/?aid=' + this.aid +
+        '&content_page_url=' + this.host +
+        '&player_height=' + this.height +
+        '&player_width=' + this.width +
+        '&sid=' + this.sid +
+        '&cb=' + this.cd
 };
