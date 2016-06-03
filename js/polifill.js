@@ -102,7 +102,7 @@ if (!Function.prototype.bind) {
             // internal IsCallable function
             throw new TypeError('Function.prototype.bind - what is trying to be bound is not callable');
         }
-alert(typeof this.apply);
+
         var aArgs   = Array.prototype.slice.call(arguments, 1),
             fToBind = this,
             fNOP    = function() {},

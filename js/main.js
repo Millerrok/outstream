@@ -29,15 +29,14 @@ Outstream.prototype.parseAndSaveConfig = function (xml) {
     this.VpaidSource = xml.getElementsByTagName('MediaFile')[0].childNodes[0].nodeValue;
     this.configUrl = xml.getElementsByTagName('AdParameters')[0].childNodes[0].nodeValue;
 
-
     function prepareXML() {
         try {
-            var DOMParser = DOMParser || '';
+            var _DOMParser = new DOMParser();
         } catch (err) {
         }
 
-        if (DOMParser) {
-            return new DOMParser().parseFromString(xhttp.responseText, 'text/xml')
+        if (_DOMParser) {
+            return _DOMParser.parseFromString(xml, 'text/xml')
         }
 
         var xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
