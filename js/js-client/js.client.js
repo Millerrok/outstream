@@ -72,8 +72,9 @@ JsClient.prototype.initVPAID = function () {
     }, 'AdError');
 
     this.VPAID.subscribe(function () {
+        this.VPAID.stopAd();
         eventManager.trigger('complete');
-    }, 'AdVideoComplete');
+    }.bind(this), 'AdVideoComplete');
 
     this.VPAID.handshakeVersion(2);
 
