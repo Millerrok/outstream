@@ -72,8 +72,8 @@ JsClient.prototype.initVPAID = function () {
     }, 'AdError');
 
     this.VPAID.subscribe(function () {
-        this.VPAID.stopAd();
         eventManager.trigger('complete');
+        this.destroy();
     }.bind(this), 'AdVideoComplete');
 
     this.VPAID.handshakeVersion(2);
@@ -125,7 +125,19 @@ JsClient.prototype.iframe = function () {
     this._iFrame.src = "about:blank";
     this._iFrame.width = this.options.width;
     this._iFrame.height = this.options.height;
+    this._iFrame.style.border = 'none';
 
     return this._iFrame;
+};
+
+JsClient.prototype.destroy = function () {
+    this.VPAID.stopAd();
+    delete this.VPAID;
+
+    this._iFrame.parentNode.removeChild(this._iFrame);
+
+    delete this._scriptTag;
+    delete this._videoTag;
+    delete this._iFrame;
 };
 
