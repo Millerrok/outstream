@@ -41,12 +41,12 @@ Outstream initer for VPAID unit
     </thead>
     <tbody md-body>
       <tr md-row >
-        <td md-cell> aid: number </td>
+        <td md-cell> aid:number </td>
         <td md-cell> data-outstream-aid </td>
         <td md-cell> User`s aid for play Ads </td>
       </tr>
       <tr md-row >
-        <td md-cell> width: number </td>
+        <td md-cell> width:number </td>
         <td md-cell> data-outstream-width </td>
         <td md-cell> Width for outstream container </td>
       </tr>
@@ -56,12 +56,12 @@ Outstream initer for VPAID unit
         <td md-cell> Height for outstream container </td>
       </tr>
       <tr md-row >
-        <td md-cell> containerEl: DOM object </td>
+        <td md-cell> containerEl:DOM object </td>
         <td md-cell> none </td>
         <td md-cell> Parent container for outstream DOM element </td>
       </tr>
       <tr md-row >
-        <td md-cell> isSSP: boolean </td>
+        <td md-cell> isSSP:boolean </td>
         <td md-cell> data-outstream-SSP </td>
         <td md-cell> Options for selection: vast.vertamedia.com (SSP account) or vast.videe.tv <br> 
         (Videe.TV account (is used by default)) </td>
