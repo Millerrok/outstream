@@ -126,6 +126,7 @@ JsClient.prototype.iframe = function () {
     this._iFrame.width = this.options.width;
     this._iFrame.height = this.options.height;
     this._iFrame.style.border = 'none';
+    this._iFrame.style.overflow = 'hidden';
 
     return this._iFrame;
 };
