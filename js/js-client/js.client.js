@@ -112,6 +112,8 @@ JsClient.prototype.videoAdLayer = function () {
     }
 
     this._videoAdLayer = document.createElement('div');
+    this._videoAdLayer.setAttribute("width", this.options.width);
+    this._videoAdLayer.setAttribute("height", this.options.height);
 
     return this._videoAdLayer;
 };
