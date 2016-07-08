@@ -97,8 +97,9 @@ JsClient.prototype.videoTag = function () {
     }
 
     this._videoTag = document.createElement('video');
-    this._videoTag.width = this.options.width;
-    this._videoTag.height = this.options.height;
+    this._videoTag.setAttribute("width", "100%");
+    this._videoTag.setAttribute("height", "100%");
+    this._videoTag.style.position  = 'absolute';
 
     return this._videoTag;
 };
@@ -126,7 +127,6 @@ JsClient.prototype.iframe = function () {
     this._iFrame.width = this.options.width;
     this._iFrame.height = this.options.height;
     this._iFrame.style.border = 'none';
-    this._iFrame.style.overflow = 'hidden';
 
     return this._iFrame;
 };
