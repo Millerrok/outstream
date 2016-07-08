@@ -9,7 +9,8 @@ JsClient.prototype.embed = function () {
         new Promise(function (resolve, reject) {
             this.iframe().addEventListener('load', function () {
                 this.iFwindow = this.iframe().contentWindow;
-                this.iFwindow.document.body.appendChild(this.videoTag());
+                this.videoAdLayer().appendChild(this.videoTag());
+                this.iFwindow.document.body.appendChild(this.videoAdLayer());
                 this.iFwindow.document.body.appendChild(this.script());
                 this.iFwindow.document.body.style.margin = 0;
 
@@ -86,7 +87,8 @@ JsClient.prototype.initVPAID = function () {
         this.configUrl,
         {
             videoSlotCanAutoPlay: true,
-            videoSlot: this.videoTag()
+            videoSlot: this.videoTag(),
+            slot: this.videoAdLayer()
         }
     )
 };
@@ -102,6 +104,16 @@ JsClient.prototype.videoTag = function () {
     this._videoTag.style.position  = 'absolute';
 
     return this._videoTag;
+};
+
+JsClient.prototype.videoAdLayer = function () {
+    if (this._videoAdLayer) {
+        return this._videoAdLayer;
+    }
+
+    this._videoAdLayer = document.createElement('div');
+
+    return this._videoAdLayer;
 };
 
 JsClient.prototype.script = function () {
@@ -137,6 +149,7 @@ JsClient.prototype.destroy = function () {
 
     this._iFrame.parentNode.removeChild(this._iFrame);
 
+    delete this._videoAdLayer;
     delete this._scriptTag;
     delete this._videoTag;
     delete this._iFrame;
