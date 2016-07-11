@@ -1,7 +1,8 @@
 function JsClient(options) {
     this.options = options;
     this.eventManager = new EventManager();
-    this.proxyEvents = ['loaded', 'error', 'complete', 'started', 'paused'];
+    this.methodsState = false;
+    this.proxyEvents = ['loaded', 'error', 'complete', 'started', 'paused', 'resize'];
 }
 
 JsClient.prototype.embed = function () {
@@ -56,13 +57,13 @@ JsClient.prototype.initVPAID = function () {
 
     this.VPAID.subscribe(function () {
         this.VPAID.startAd();
-
         eventManager.trigger('loaded');
     }.bind(this), 'AdLoaded');
 
     this.VPAID.subscribe(function () {
+        this.methodsState = true;
         eventManager.trigger('started');
-    }, 'AdStarted');
+    }.bind(this), 'AdStarted');
 
     this.VPAID.subscribe(function () {
         eventManager.trigger('paused');
@@ -71,6 +72,18 @@ JsClient.prototype.initVPAID = function () {
     this.VPAID.subscribe(function (err) {
         eventManager.trigger('error', err);
     }, 'AdError');
+
+    this.VPAID.subscribe(function () {
+        eventManager.trigger('playing');
+    }, 'AdPlaying');
+
+    this.VPAID.subscribe(function () {
+        eventManager.trigger('stopped');
+    }, 'AdStopped');
+
+    this.VPAID.subscribe(function () {
+        eventManager.trigger('resize');
+    }, 'AdSizeChange');
 
     this.VPAID.subscribe(function () {
         eventManager.trigger('complete');
@@ -90,7 +103,7 @@ JsClient.prototype.initVPAID = function () {
             videoSlot: this.videoTag(),
             slot: this.videoAdLayer()
         }
-    )
+    );
 };
 
 JsClient.prototype.videoTag = function () {
@@ -101,7 +114,7 @@ JsClient.prototype.videoTag = function () {
     this._videoTag = document.createElement('video');
     this._videoTag.setAttribute("width", "100%");
     this._videoTag.setAttribute("height", "100%");
-    this._videoTag.style.position  = 'absolute';
+    this._videoTag.style.position = 'absolute';
 
     return this._videoTag;
 };
@@ -137,6 +150,7 @@ JsClient.prototype.iframe = function () {
     }
 
     this._iFrame = document.createElement('iFrame');
+    this._iFrame.setAttribute("allowfullscreen", "true");
     this._iFrame.src = "about:blank";
     this._iFrame.width = this.options.width;
     this._iFrame.height = this.options.height;
@@ -156,4 +170,3 @@ JsClient.prototype.destroy = function () {
     delete this._videoTag;
     delete this._iFrame;
 };
-

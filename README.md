@@ -149,11 +149,39 @@ Outstream initer for VPAID unit
 ### off()
  Unsubscribe from Outstream event
 
-### trigger()
- Trigger Outstream event
-
 ### destroy()
- destroy Outstream containerEl content
+ Destroy Outstream containerEl content
+
+### startAd()
+ Start playing add
+
+### stopAd()
+ Stop playing add
+
+### mute()
+ Mute add video
+
+### unmute()
+ Unmute add video
+
+### skipAd()
+ Skip add playing
+
+### getAdVolume()
+ return volume val
+
+### setAdVolume(val)
+ val: from 0 to 1
+ Set add playing
+
+### pauseAd()
+ Stop playing add
+
+### resumeAd()
+ Resume playing add
+
+### resizeAd(width : Number, height : Number, viewMode : String)
+ Set new size for add view
 
 ## Flash mode Support :
  IE from ie7

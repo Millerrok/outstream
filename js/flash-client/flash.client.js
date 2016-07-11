@@ -3,8 +3,6 @@ function FlashClient(options) {
         throw new Error('Flash Player not installed!');
     }
 
-    this.eventManager;
-    this.sdkUnique = null;
     this.id = Math.round(( new Date() ).getTime() / 10000 + Math.random() * 10000000);
     this.unitSrc = '//player.videe.tv/v2.1/resources/libs/videejs-player.swf';
     this.flashVersion = "10.0.0";
@@ -20,7 +18,7 @@ function FlashClient(options) {
 }
 
 FlashClient.prototype.init = function (VpaidSource, configUrl, vastUrl) {
-    if(VpaidSource && !this.checkUnitSource(VpaidSource)){
+    if (VpaidSource && !this.checkUnitSource(VpaidSource)) {
         throw new Error('unit not SWF');
     }
 
@@ -29,7 +27,7 @@ FlashClient.prototype.init = function (VpaidSource, configUrl, vastUrl) {
     this.embedSWF();
 };
 
-FlashClient.prototype.checkUnitSource = function (VpaidSource){
+FlashClient.prototype.checkUnitSource = function (VpaidSource) {
     return VpaidSource.indexOf('.swf') != -1;
 };
 
@@ -51,6 +49,13 @@ FlashClient.prototype.embedSWF = function () {
     }
 };
 
+FlashClient.prototype.initEvents = function () {
+    this.eventManager.on('ready', function () {
+        this.VPAID = document.getElementById(this.sdkUnique);
+        this.methodsState = true;
+    }.bind(this));
+};
+
 FlashClient.prototype.initWrapper = function (vastUrl) {
     try {
         this.eventManager = new Wrapper(
@@ -63,6 +68,8 @@ FlashClient.prototype.initWrapper = function (vastUrl) {
     } catch (err) {
         console.error(err)
     }
+
+    this.initEvents();
 };
 
 FlashClient.prototype.addWrapperEl = function () {

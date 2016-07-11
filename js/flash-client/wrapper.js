@@ -3,6 +3,7 @@
  * @param width {number}
  * @param height {number}
  * @param sid {number}
+ * @param configUrl {string}
  * @constructor
  */
 function Wrapper(aid, width, height, sid, configUrl) {
@@ -58,6 +59,7 @@ Wrapper.prototype.wrap = function (adId) {
             eventManager.trigger('started');
         },
         startFlashWrapper: function () {
+            eventManager.trigger('ready');
             var SdkIntegration = window["SdkIntegration" + adId];
             SdkIntegration.width = width;
             SdkIntegration.height = height;

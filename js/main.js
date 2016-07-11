@@ -54,7 +54,7 @@ Outstream.prototype.parseAndSaveConfig = function (xml) {
 
 Outstream.prototype.loadConfig = function () {
     var configUrl = this.getConfigUrl();
-    return new Promise(function (resolve, reject) {
+    return new Promise(function (resolve) {
         try {
             var xdr = new XDomainRequest()
         } catch (err) {
@@ -120,7 +120,7 @@ Outstream.prototype.init = function () {
 
 Outstream.prototype.initVPAID = function () {
     try {
-        this.VPAID.init(
+        this.VPAIDClient.init(
             this.VpaidSource,
             this.configUrl,
             this.getConfigUrl()
@@ -141,7 +141,7 @@ Outstream.prototype.initVPAID = function () {
         return;
     }
 
-    this.initEventListener(this.VPAID.eventManager);
+    this.initEventListener(this.VPAIDClient.eventManager);
 };
 
 Outstream.prototype.getConfigUrl = function () {
@@ -183,18 +183,18 @@ Outstream.prototype.useMode = function (modeType) {
     modeType = modeType in VPAIDFactory ? modeType : 'flash';
 
     try {
-        this.VPAID = new VPAIDFactory[modeType](this.options());
+        this.VPAIDClient = new VPAIDFactory[modeType](this.options());
     } catch (err) {
         console.error(modeType + " init ERROR: " + err);
         return false;
     }
 
-    return !!this.VPAID;
+    return !!this.VPAIDClient;
 };
 
 Outstream.prototype.initEventListener = function (eventManager) {
     var context = this,
-        proxyEvents = this.VPAID.proxyEvents;
+        proxyEvents = this.VPAIDClient.proxyEvents;
 
     for (var i in proxyEvents) {
         initEvent(proxyEvents[i]);
@@ -232,5 +232,107 @@ Outstream.prototype.destroy = function () {
     this.options.containerEl.innerHTML = ''
 };
 
+Outstream.prototype.callMethod = function (methodName) {
+    methodName = this.mode == 'flash' ? 'videe_' + methodName : methodName;
+
+    if (this.VPAIDClient.methodsState) {
+        return this.VPAIDClient.VPAID[methodName]();
+    }
+
+    this.on('started', function () {
+        this.VPAIDClient.VPAID[methodName]();
+    }.bind(this));
+};
+
+// Public VPAID methods
+Outstream.prototype.startAd = function () {
+    this.callMethod('startAd');
+
+    return this;
+};
+
+Outstream.prototype.stopAd = function () {
+    this.callMethod('stopAd');
+
+    return this;
+};
+
+Outstream.prototype.skipAd = function () {
+    this.callMethod('skipAd');
+
+    return this;
+};
+
+Outstream.prototype.mute = function () {
+    if (this.VPAIDClient.methodsState) {
+        clb.call(this);
+
+        return;
+    }
+
+    this.on('started', function () {
+        clb.call(this)
+    }.bind(this));
+
+    function clb() {
+        var methodName = this.mode == 'flash' ? 'videe_getAdVolume' : 'getAdVolume';
+
+        this.savedVolume = this.VPAIDClient.VPAID[methodName]();
+
+        methodName = this.mode == 'flash' ? 'videe_setAdVolume' : 'setAdVolume';
+        this.VPAIDClient.VPAID[methodName](0);
+    }
+
+    return this;
+};
+
+Outstream.prototype.unmute = function () {
+    var methodName = this.mode == 'flash' ? 'videe_setAdVolume' : 'setAdVolume';
+    this.VPAIDClient.VPAID[methodName](this.savedVolume || 1);
+
+    return this;
+};
+
+Outstream.prototype.setAdVolume = function (val) {
+    if (typeof val != 'number' || val != val) {
+        return
+    }
+
+    this.callMethod('setAdVolume');
+
+    return this;
+};
+
+Outstream.prototype.getAdVolume = function () {
+    return this.callMethod('getAdVolume');
+};
+
+Outstream.prototype.pauseAd = function () {
+    this.callMethod('pauseAd');
+
+    return this;
+};
+
+Outstream.prototype.resumeAd = function () {
+    this.callMethod('resumeAd');
+
+    return this;
+};
+
+Outstream.prototype.resizeAd = function () {
+    var args = Array.prototype.slice.call(arguments),
+        methodName = this.mode == 'flash' ? 'videe_setAdVolume' : 'setAdVolume';
+    if (this.VPAIDClient.methodsState) {
+        return this.VPAIDClient.VPAID[methodName].apply(null, args);
+    }
+
+    this.on('started', function () {
+        this.VPAIDClient.VPAID[methodName].apply(null, args);
+    }.bind(this));
+
+    return this;
+};
+
+// init
 var root = root || window;
 root.Outstream = Outstream;
