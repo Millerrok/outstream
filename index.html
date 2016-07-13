@@ -8,12 +8,17 @@
 <body>
 <div id="ad-container"></div>
 <script>
-    new Outstream({
-        aid: 13694,
-        width: 300,
-        height: 400,
-        containerEl: document.getElementById('ad-container')
-    });
+    localStorage.debug =  1;
+
+
+    var ss = new Outstream({
+            aid: 21189,
+            width: 400,
+            height: 300,
+            containerEl: document.getElementById('ad-container'),
+            VPAIDMode:["js"]
+
+        });
 
 </script>
 </body>

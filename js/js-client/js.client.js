@@ -79,7 +79,8 @@ JsClient.prototype.initVPAID = function () {
 
     this.VPAID.subscribe(function () {
         eventManager.trigger('stopped');
-    }, 'AdStopped');
+        this.destroy();
+    }.bind(this), 'AdStopped');
 
     this.VPAID.subscribe(function () {
         eventManager.trigger('resize');
@@ -87,7 +88,7 @@ JsClient.prototype.initVPAID = function () {
 
     this.VPAID.subscribe(function () {
         eventManager.trigger('complete');
-        this.destroy();
+        this.VPAID.stopAd();
     }.bind(this), 'AdVideoComplete');
 
     this.VPAID.handshakeVersion(2);

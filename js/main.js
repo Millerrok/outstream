@@ -232,15 +232,15 @@ Outstream.prototype.destroy = function () {
     this.options.containerEl.innerHTML = ''
 };
 
-Outstream.prototype.callMethod = function (methodName) {
+Outstream.prototype.callMethod = function (methodName, data) {
     methodName = this.mode == 'flash' ? 'videe_' + methodName : methodName;
 
-    if (this.VPAIDClient.methodsState) {
-        return this.VPAIDClient.VPAID[methodName]();
+    if (this.isVPAIDReady()) {
+        return this.VPAIDClient.VPAID[methodName](data);
     }
 
     this.on('started', function () {
-        this.VPAIDClient.VPAID[methodName]();
+        this.VPAIDClient.VPAID[methodName](data);
     }.bind(this));
 };
 
@@ -264,7 +264,7 @@ Outstream.prototype.skipAd = function () {
 };
 
 Outstream.prototype.mute = function () {
-    if (this.VPAIDClient.methodsState) {
+    if (this.isVPAIDReady()) {
         clb.call(this);
 
         return;
@@ -287,8 +287,7 @@ Outstream.prototype.mute = function () {
 };
 
 Outstream.prototype.unmute = function () {
-    var methodName = this.mode == 'flash' ? 'videe_setAdVolume' : 'setAdVolume';
-    this.VPAIDClient.VPAID[methodName](this.savedVolume || 1);
+    this.callMethod('setAdVolume', this.savedVolume || 1);
 
     return this;
 };
@@ -298,7 +297,7 @@ Outstream.prototype.setAdVolume = function (val) {
         return
     }
 
-    this.callMethod('setAdVolume');
+    this.callMethod('setAdVolume', val);
 
     return this;
 };
@@ -319,11 +318,17 @@ Outstream.prototype.resumeAd = function () {
     return this;
 };
 
+Outstream.prototype.isVPAIDReady = function () {
+    return this.VPAIDClient && this.VPAIDClient.methodsState && this.VPAIDClient.VPAID;
+};
+
 Outstream.prototype.resizeAd = function () {
     var args = Array.prototype.slice.call(arguments),
-        methodName = this.mode == 'flash' ? 'videe_setAdVolume' : 'setAdVolume';
-    if (this.VPAIDClient.methodsState) {
-        return this.VPAIDClient.VPAID[methodName].apply(null, args);
+        methodName = this.mode == 'flash' ? 'videe_resizeAd' : 'resizeAd';
+    if (this.isVPAIDReady()) {
+        this.VPAIDClient.VPAID[methodName].apply(null, args);
+
+        return this;
     }
 
     this.on('started', function () {

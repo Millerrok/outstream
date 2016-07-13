@@ -11,7 +11,7 @@ function FlashClient(options) {
         allowFullScreen: "true",
         wmode: 'transparent'
     };
-
+    this.methodsState = false;
     this.proxyEvents = ['loaded', 'error', 'complete', 'started', 'resumed', 'paused', 'mute', 'unmute'];
 
     this.options = options;
