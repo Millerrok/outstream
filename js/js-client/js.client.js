@@ -161,7 +161,6 @@ JsClient.prototype.iframe = function () {
 };
 
 JsClient.prototype.destroy = function () {
-    this.VPAID.stopAd();
     delete this.VPAID;
 
     this._iFrame.parentNode.removeChild(this._iFrame);
