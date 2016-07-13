@@ -184,13 +184,13 @@ Outstream initer for VPAID unit
  Sets new size for Ads view
 
 ## Flash mode is supported :
- IE from ie7
- Chrome
- FireFox
+ IE from ie7<br>
+ Chrome<br>
+ FireFox<br>
  Safari
 
 ## JS mode is supported :
- IE from ie9
- Chrome
- FireFox
+ IE from ie9<br>
+ Chrome<br>
+ FireFox<br>
  Safari
