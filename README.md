@@ -13,7 +13,7 @@ Outstream initer for VPAID unit
 
 `script tag` example:
 ```HTML
-  <script data-outstream-aid="13694" data-outstream-width="400" data-outstream-height="300" src="dist/outstream.js"></script>
+  <script data-outstream-aid="13694" data-outstream-width="400" data-outstream-mode="flash js" data-outstream-height="300" src="dist/outstream.js"></script>
 ```
 
 ### By Constructor:
@@ -26,6 +26,7 @@ Outstream initer for VPAID unit
       aid: 13694,
       width: 400,
       height: 300,
+      VPAIDMode: ['flash', 'js']
       containerEl: document.getElementById('ad-container')
   })
 ```
