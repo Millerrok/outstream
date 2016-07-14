@@ -154,38 +154,43 @@ Outstream initer for VPAID unit
  Destroy Outstream containerEl content
 
 ### startAd()
- Start playing add
+ Starts playing Ads
 
 ### stopAd()
- Stop playing add
+ Stops playing Ads
 
 ### mute()
- Mute add video
+ Mutes Ads
 
 ### unmute()
- Unmute add video
+ Unmutes Ads
 
 ### skipAd()
- Skip add playing
+ Skips Ad which currently plays
 
 ### getAdVolume()
- return volume val
+ Returns volume value
 
 ### setAdVolume(val)
- val: from 0 to 1
- Set add playing
+ Sets Ads playing volume. Value`s parameter: from 0 to 1
 
 ### pauseAd()
- Stop playing add
+ Stops playing Ads
 
 ### resumeAd()
- Resume playing add
+ Resumes playing Ads
 
 ### resizeAd(width : Number, height : Number, viewMode : String)
- Set new size for add view
+ Sets new size for Ads view
 
-## Flash mode Support :
- IE from ie7
- Chrome
- FireFox
+## Flash mode is supported :
+ IE from ie7<br>
+ Chrome<br>
+ FireFox<br>
+ Safari
+
+## JS mode is supported :
+ IE from ie9<br>
+ Chrome<br>
+ FireFox<br>
  Safari
