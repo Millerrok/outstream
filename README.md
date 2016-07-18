@@ -23,10 +23,10 @@ Example:
   <script data-outstream-aid="13694" data-outstream-width="400" data-outstream-mode="flash js" data-outstream-height="300" src="dist/outstream.js"></script>
 ```
 You are able to customize a player to suit your needs. Please, use the attribute `data-outstream-` for redefining options by default.
-List of available options presented below.
+List of available [*player options*](#user-content-player-options) presented below.
 
 ### Adding HTML markup
-As soon as you've got all the files downloaded and included in your page you just need to call constructor:
+As soon as you've got all files downloaded and included in your page you just need to call constructor:
 ```javascript
   new Outstream({
       aid: 13694,
@@ -36,7 +36,7 @@ As soon as you've got all the files downloaded and included in your page you jus
       containerEl: document.getElementById('ad-container')
   })
 ```
-List of available options presented below.
+List of available [*player options*](#user-content-player-options) are presented below:
 
 ### Player options:
 <md-table-container>
