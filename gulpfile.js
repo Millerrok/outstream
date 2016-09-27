@@ -7,13 +7,19 @@ var gulp = require('gulp'),
     });
 
 
-var jsVendor = gulp.src(["./js/polifill.js", "./js/vendor/**/*.js"]),
-    jsApp = gulp.src(["./js/**/*.js", "!./js/polifill.js", "!./js/autoinit.js", "!./js/vendor/**/*.js"]),
-    runFile = gulp.src(["./js/autoinit.js"]),
-    jsFiles = merge(jsVendor, jsApp, runFile);
+var jsFiles = [
+    "./js/polifill.js",
+    "./js/vendor/**/*.js",
+    "./js/event.manager.js",
+    "./js/flash-client/wrapper.js",
+    "./js/flash-client/flash.client.js",
+    "./js/js-client/js.client.js",
+    "./js/main.js",
+    "./js/autoinit.js"
+];
 
 gulp.task('js:dev', function () {
-    jsFiles
+    gulp.src(jsFiles)
         .pipe(plugins.sourcemaps.init())
         .pipe(plugins.concat('outstream.js'))
         .pipe(plugins.wrap({
@@ -26,7 +32,7 @@ gulp.task('js:dev', function () {
         .pipe(gulp.dest('./dist'));
 });
 gulp.task('js:prod', function () {
-    jsFiles
+    gulp.src(jsFiles)
         .pipe(plugins.sourcemaps.init())
         .pipe(plugins.concat('outstream.min.js'))
         .pipe(plugins.wrap({

@@ -11,7 +11,7 @@ function Wrapper(aid, width, height, sid, configUrl) {
         throw new Error('Set aid')
     }
 
-    this.host = encodeURIComponent(window.location.host);
+    this.host = encodeURIComponent(window.location.href != window.parent.location.href ? document.referrer : window.location.href);
     this.cd = new Date().getTime();
     this.height = height || 300;
     this.width = width || 400;

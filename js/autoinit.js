@@ -1,31 +1,30 @@
-window.onload = function () {
-
+var onload = function () {
     var parser = {
-        number: function(el, key){
+        number: function (el, key) {
             var value = this.parse(el, key);
 
             return parseInt(value);
         },
-        array: function(el, key){
+        array: function (el, key) {
             var value = this.parse(el, key);
-            if(!value){
+            if (!value) {
                 return value;
             }
 
             return value.split(' ');
         },
-        bool: function(el, key){
+        bool: function (el, key) {
             var value = this.parse(el, key);
 
-            try{
+            try {
                 value = JSON.parse(value)
-            }catch(err){
+            } catch (err) {
                 value = false
             }
 
             return !!value;
         },
-        parse: function(el, key){
+        parse: function (el, key) {
             var value;
 
             try {
@@ -88,3 +87,9 @@ window.onload = function () {
         return adContainer;
     }
 };
+
+if (window !== top) {
+    onload();
+} else {
+    window.onload = onload;
+}
