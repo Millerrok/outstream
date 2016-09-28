@@ -148,7 +148,7 @@ Outstream.prototype.getConfigUrl = function () {
     var domain = this.options().isSSP ? "vast.vertamedia.com/" : "vast.videe.tv/",
         configUrl = "//" + domain +
             "?aid=" + this.options().aid +
-            "&content_page_url=" + encodeURIComponent(window.location.href) +
+            "&content_page_url=" + encodeURIComponent(window.location.href != window.parent.location.href ? document.referrer : window.location.href) +
             "&player_width=" + this.options().width +
             "&player_height=" + this.options().height +
             "&cd=" + new Date().getTime();
