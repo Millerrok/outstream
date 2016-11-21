@@ -55,6 +55,9 @@ Wrapper.prototype.wrap = function (adId) {
         unmuteClosure: function () {
             eventManager.trigger('unmute');
         },
+        impressionClosure: function () {
+            eventManager.trigger('impression');
+        },
         adStartedClosure: function () {
             eventManager.trigger('started');
         },
@@ -73,6 +76,7 @@ Wrapper.prototype.wrap = function (adId) {
 Wrapper.prototype.getConfig = function (adId) {
     var tpl = "window.VpaidflashWrappers[" + adId + "]";
     return JSON.stringify({
+        impressionClosure: tpl + ".impressionClosure",
         adCompleteClosure: tpl + ".adCompleteClosure",
         adStartedClosure: tpl + ".adStartedClosure",
         adLoadedClosure: tpl + ".adLoadedClosure",

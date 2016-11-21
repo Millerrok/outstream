@@ -2,7 +2,7 @@ function JsClient(options) {
     this.options = options;
     this.eventManager = new EventManager();
     this.methodsState = false;
-    this.proxyEvents = ['loaded', 'error', 'complete', 'started', 'paused', 'resize'];
+    this.proxyEvents = ['loaded', 'error', 'complete', 'impression', 'started', 'paused', 'resize'];
 }
 
 JsClient.prototype.embed = function () {
@@ -76,6 +76,10 @@ JsClient.prototype.initVPAID = function () {
     this.VPAID.subscribe(function () {
         eventManager.trigger('playing');
     }, 'AdPlaying');
+
+    this.VPAID.subscribe(function () {
+        eventManager.trigger('impression');
+    }, 'AdImpression');
 
     this.VPAID.subscribe(function () {
         eventManager.trigger('stopped');
