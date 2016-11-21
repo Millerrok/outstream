@@ -208,7 +208,9 @@ Outstream.prototype.initEventListener = function (eventManager) {
 };
 
 Outstream.prototype.on = function (eventName, callback) {
-    this.events[eventName + ''] = callback;
+    this.events[eventName + ''] = this.events[eventName + ''] || [];
+    this.events[eventName + ''].push(callback);
+
     return this;
 };
 
@@ -219,13 +221,25 @@ Outstream.prototype.off = function (eventName) {
 };
 
 Outstream.prototype.trigger = function (eventName, data) {
-    var callback = this.events[eventName];
+    var length;
 
-    if (!callback) {
+    if (!this.events[eventName] || !this.events[eventName].length) {
         return;
     }
 
-    callback.call(this, data);
+    length = this.events[eventName].length;
+
+    if (length == 1) {
+        this.events[eventName][0].call(null, data);
+
+        return;
+    }
+
+    if (length > 1) {
+        for (var i = 0; i < length; i++) {
+            this.events[eventName][i].call(null, data);
+        }
+    }
 };
 
 Outstream.prototype.destroy = function () {

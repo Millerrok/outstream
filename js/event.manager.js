@@ -8,11 +8,13 @@ EventManager.prototype.on = function (eventName, callback) {
 };
 
 EventManager.prototype.trigger = function (eventName, data) {
-    var length = this.events[eventName].length;
+    var length;
 
-    if (length == 0) {
+    if (!this.events[eventName] || !this.events[eventName].length) {
         return;
     }
+
+    length = this.events[eventName].length;
 
     if (length == 1) {
         this.events[eventName][0].call(null, data);
