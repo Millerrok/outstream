@@ -63,7 +63,8 @@ FlashClient.prototype.initWrapper = function (vastUrl) {
             this.options.width,
             this.options.height,
             this.options.sid,
-            vastUrl
+            vastUrl,
+            this.options.contentPageUrl
         ).wrap(this.id);
     } catch (err) {
         console.error(err)

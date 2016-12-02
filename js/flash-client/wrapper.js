@@ -6,12 +6,12 @@
  * @param configUrl {string}
  * @constructor
  */
-function Wrapper(aid, width, height, sid, configUrl) {
+function Wrapper(aid, width, height, sid, configUrl, contentPageUrl) {
     if (!aid) {
         throw new Error('Set aid')
     }
 
-    this.host = encodeURIComponent(window.location.href != window.parent.location.href ? document.referrer : window.location.href);
+    this.host = contentPageUrl;
     this.cd = new Date().getTime();
     this.height = height || 300;
     this.width = width || 400;
