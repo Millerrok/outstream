@@ -117,6 +117,10 @@ List of available [*Player options*](#user-content-player-options) are presented
         <td md-cell> error</td>
         <td md-cell> On ad has some error</td>
       </tr>
+      <tr md-row >
+        <td md-cell> impression</td>
+        <td md-cell> On ad impression event (only for jsVPAID)</td>
+      </tr>
        <tr md-row >
         <td md-cell> complete </td>
         <td md-cell> On finish play ad </td>
