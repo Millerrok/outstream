@@ -164,6 +164,7 @@ Outstream.prototype.getConfigUrl = function () {
             "&content_page_url=" + this.options().contentPageUrl +
             "&player_width=" + this.options().width +
             "&player_height=" + this.options().height +
+            "&sid=" + this.options().sid +
             "&cd=" + new Date().getTime();
 
     if (this.mode == "js") {

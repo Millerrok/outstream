@@ -49,6 +49,7 @@ var onload = function () {
                     height: parser.number(scriptTags[item], 'height'),
                     isSSP: parser.bool(scriptTags[item], 'SSP'),
                     VPAIDMode: parser.array(scriptTags[item], 'mode'),
+                    sid: parser.parse(scriptTags[item], 'sid'),
                     aid: aid,
                     containerEl: createEl(scriptTags[item])
                 });
@@ -59,6 +60,7 @@ var onload = function () {
 
     function initOutstream(options) {
         new Outstream({
+            sid: options.sid,
             aid: options.aid,
             isSSP: options.isSSP,
             VPAIDMode: options.VPAIDMode,
