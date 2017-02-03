@@ -70,6 +70,7 @@ Outstream.prototype.loadConfig = function () {
             };
 
             xhttp.open("GET", configUrl, true);
+            xhttp.withCredentials = true;
             xhttp.send();
         } else {
             // Use Microsoft XDR
